@@ -15,6 +15,7 @@ class ProductTableSeeder extends Seeder
      */
     public function run()
     {
+        /*** Determina que vão ser criados 1 perfis fakes ***/
         Product::factory()->count(10)->create();
     }
 }
