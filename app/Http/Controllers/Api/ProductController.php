@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Services\ProductService;
 
 class ProductController extends Controller
 {
@@ -14,73 +15,38 @@ class ProductController extends Controller
         $this->service = $service;
     }
 
-
-    public function index(Request $request) 
+    public function store(Request $request, $data)
     {
-        return response()->json($this->product->paginate(5));
+        return $this->service->store([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+        ]);
     }
 
-    public function show($id) 
+    public function getList()
     {
-        $product = $this->product->find($id);
-
-        if(! $product) return response()->json(ApiError::errorMessage('Produto não encontrado!', 4040),404);
-
-        $data = ['data' => $product];
-        return response()->json($data);
+        $a = "ola";
+        return dd($a);
+        // return $this->service->getList();
     }
 
-    public function store(Request $request) 
+    public function get($id)
     {
-
-        try {
-            $productData = $request->all();
-            $this->product->create($productData);
-
-            return response()->json(['data' => ['msg' => 'Produto inserido com sucesso!'], 201],500);
-
-        } catch (\Exception $e){
-            if(config('app.debug')){
-                return response()->json(ApiError::errorMessage($e->getMessage(), 1010),500);
-            }
-            
-            return response()->json(ApiError::errorMessage('Houve um erro ao realizar a operação', 1010)); 
-        }
+        return $this->service->get($id);
     }
 
-    public function update(Request $request, $id) 
+    public function update(Request $request, $id)
     {
-
-        try {
-            $productData = $request->all();
-            $productFind = $this->product->find($id);
-            $productFind->update($productData);
-
-            $return = ['data' => ['msg' => 'Produto atualizado com sucesso!']];
-            return response()->json($return, 201,500);
-
-        } catch (\Exception $e){
-            if(config('app.debug')){
-                return response()->json(ApiError::errorMessage($e->getMessage(), 1010), 500);
-            }
-            
-            return response()->json(ApiError::errorMessage('Houve um erro ao realizar a operação', 1010)); 
-        }
+        return $this->service->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+        ], $id);
     }
 
-    public function delete(Product $id) 
+    public function destroy($id)
     {
-
-        try {
-            $id->delete();
-            return response()->json(['data' => ['msg' => 'Produto excluido com sucesso!'], 200]);
-
-        } catch (\Exception $e){
-            if(config('app.debug')){
-                return response()->json(ApiError::errorMessage($e->getMessage(), 1012), 500);
-            }
-
-            return response()->json(ApiError::errorMessage('Houve um erro ao realizar a operação', 1010)); 
-        }
+        return $this->service->destroy($id);
     }
 }

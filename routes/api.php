@@ -23,7 +23,7 @@ Route::namespace('Api')->name('api.')->group(function(){
 
     Route::prefix('products')->group(function(){
       
-        Route::get('/', [ProductController::class, 'index'])->name('index_products'); 
+        Route::get('/', [ProductController::class, 'getList'])->name('index_products'); 
         Route::get('/{id}', [ProductController::class, 'show'])->name('show_products'); 
         
         Route::post('/', [ProductController::class, 'store'])->name('store_products'); 
@@ -32,3 +32,5 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::delete('/{id}', [ProductController::class, 'delete'])->name('delete_products');
     });
 });
+
+// Route::get('getList', 'ProductController@getList');

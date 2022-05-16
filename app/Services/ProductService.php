@@ -1,12 +1,13 @@
 <?php 
-    namespace App\Services;
 
+namespace App\Services;
+use App\Repositories\ProductRepositoryInterface;
 
 class ProductService 
 {
     private $repo;
 
-    public function __construct(repo $repo)
+    public function __construct(ProductRepositoryInterface $repo)
     {
         $this->repo = $repo;
     }
@@ -34,16 +35,8 @@ class ProductService
 
     public function destroy($id)
     {
-        return $this->repo->destroy();
+        return $this->repo->destroy($id);
     }
 }
-
-
-
-
-
-
-
-
 
 ?>
