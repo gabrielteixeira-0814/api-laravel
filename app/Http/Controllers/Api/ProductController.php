@@ -8,10 +8,10 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    private $product;
+    private $service;
 
-    public function __construct(Product $product) {
-        $this->product = $product;
+    public function __construct(ProductService $service) {
+        $this->service = $service;
     }
 
 
