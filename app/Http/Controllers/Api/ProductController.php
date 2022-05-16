@@ -28,6 +28,17 @@ class ProductController extends Controller
 
     public function store(Request $request) 
     {
-        dd($request->all());
+
+        try {
+            $productData = $request->all();
+            $this->product->create($productData);
+            return response()->json(['msg' => 'Produto inserido com sucesso!'], 201);
+
+        } catch (\Exception $e){
+            if(config('app.debug')){
+                return response()->json(ApiError::errorMessage($e->getMessage(), 1010));
+            }
+            return response()->json(ApiError::errorMessage('Houve um erro ao realizar a operação', 1010)); 
+        }
     }
 }
