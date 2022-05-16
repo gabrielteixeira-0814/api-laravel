@@ -15,20 +15,19 @@ class ProductController extends Controller
         $this->service = $service;
     }
 
-    public function store(Request $request, $data)
+    public function store(Request $request)
     {
-        return $this->service->store([
+        $data = [
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
-        ]);
+        ];
+        return $this->service->store($data);
     }
 
     public function getList()
     {
-        $a = "ola";
-        return dd($a);
-        // return $this->service->getList();
+        return $this->service->getList();
     }
 
     public function get($id)
