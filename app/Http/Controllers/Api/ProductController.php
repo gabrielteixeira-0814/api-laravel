@@ -17,12 +17,12 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $data = [
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-        ];
-        return $this->service->store($data);
+        // $data = [
+        //     'name' => $request->name,
+        //     'price' => $request->price,
+        //     'description' => $request->description,
+        // ];
+        return $this->service->store($request->all());
     }
 
     public function getList()
@@ -37,11 +37,7 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->service->update([
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-        ], $id);
+        return $this->service->update($request->all(), $id);
     }
 
     public function destroy($id)

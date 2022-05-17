@@ -28,7 +28,7 @@ class ProductRepositoryEloquent implements ProductRepositoryInterface
 
     public function get($id)
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id); //  Se não encontrar ele da um erro, melhor para a segurança
     }
 
     public function update(array $data, $id)
