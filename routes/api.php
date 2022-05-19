@@ -28,16 +28,12 @@ Route::namespace('Api')->name('api.')->group(function(){
 
     Route::prefix('products')->group(function(){
 
-
-        
         Route::group(['middleware' => ['auth:sanctum']], function(){
             Route::post('/', [ProductController::class, 'store'])->name('store_products'); 
             Route::post('/{id}', [ProductController::class, 'update'])->name('update_products');
             Route::delete('/{id}', [ProductController::class, 'destroy'])->name('destroy_products');
             Route::get('/', [ProductController::class, 'getList'])->name('getList_products'); 
         });
-      
-        Route::post('/', [ProductController::class, 'store'])->name('store_products');
         Route::get('/{id}', [ProductController::class, 'get'])->name('get_products'); 
     });
 });
