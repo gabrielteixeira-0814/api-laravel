@@ -15,7 +15,28 @@ class ProductService
     // AQUI FAZ A VALIDAÇÃO DOS DADOS EX: O VALIDADE
     public function store(array $data)
     {
+        
+        $file = $data['image'];
+
+        if($file) {
+            $nameFile = $file->getClientOriginalName();
+            $file = $file->storeAs('products', $nameFile);
+            $data['image'] = $file;
+        }
+
         return $this->repo->store($data);
+       
+        // if($file) 
+        // {
+        //     foreach ($images as  $image) 
+        //     {
+        //         $nameFile = $image->getClientOriginalName();
+
+        //         $files = $image->storeAs('products', $nameFile);
+        //         $list[] = $files;
+        //     }
+        //     return $list;
+        // }
     }
 
     public function getList()
