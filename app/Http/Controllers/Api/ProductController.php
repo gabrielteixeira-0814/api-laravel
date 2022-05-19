@@ -17,6 +17,18 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+
+        $images = $request->file('images');
+
+      
+        $list[] = '';
+        if($images) {
+            foreach ($images as  $image) {
+                $path = $image->store('images', 'local');
+               $list[] = $path;
+            }
+            return $list;
+        }
         // $data = [
         //     'name' => $request->name,
         //     'price' => $request->price,
